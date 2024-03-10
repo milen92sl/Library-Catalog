@@ -49,3 +49,27 @@ test('Verify "Logout button" is visible for already loged in users', async ({ pa
     const isLogoutBtnVisible = await logoutButton.isVisible();
     expect(isLogoutBtnVisible).toBe(true);
 });
+
+test('Check is it possible to Add books with registered and logged in user', async ({ page }) => {
+    await page.goto("http://localhost:3000/login");
+
+    await page.fill('input[name="email"]', 'peter@abv.bg');
+    await page.fill('input[name="password"]', '123456');
+    await page.click('#login-form > fieldset > input');
+
+    const addBooksButton = await page.$('#user > a:nth-child(3)');
+    const isAddBooksBtnVisible = await addBooksButton.isVisible();
+    expect(isAddBooksBtnVisible).toBe(true);
+});
+
+test('Check is My Books section visible with registered and logged in user', async ({ page }) => {
+    await page.goto("http://localhost:3000/login");
+
+    await page.fill('input[name="email"]', 'peter@abv.bg');
+    await page.fill('input[name="password"]', '123456');
+    await page.click('#login-form > fieldset > input');
+
+    const myBooksSectionButton = await page.$('#user > a:nth-child(2)');
+    const isMyBooksBtnVisible = await myBooksSectionButton.isVisible();
+    expect(isMyBooksBtnVisible).toBe(true);
+});
